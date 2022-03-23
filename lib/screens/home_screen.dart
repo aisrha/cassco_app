@@ -1,4 +1,5 @@
 import 'package:casscoapp/model/user_model.dart';
+import 'package:casscoapp/screens/homepage_screen.dart';
 import 'package:casscoapp/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,11 +30,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  int currentIndex = 0;
+  final screens = [
+    HomePageScreen(),
+    Center(child: Text("Notes", style: TextStyle(fontSize: 60))),
+    Center(child: Text("Profile", style: TextStyle(fontSize: 60))),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Welcome"),
+        title: Text("CASSCO"),
+        backgroundColor: Colors.orangeAccent,
         centerTitle: true,
         actions: <Widget>[
           IconButton(
@@ -47,39 +56,33 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 150,
-                child: Image.asset("assets/logo.png", fit: BoxFit.contain),
-              ),
-              SizedBox(height: 20),
-              Text(
-                "Welcome Back",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "${loggedInUser.firstName} ${loggedInUser.secondName}",
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-              ),
-              Text(
-                "${loggedInUser.email}",
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-              )
-            ],
+      body: IndexedStack(
+        index: currentIndex,
+        children: screens,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Colors.orangeAccent,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() {
+          currentIndex = index;
+        }),
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: "Notes",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: "Profile",
+          )
+        ],
       ),
     );
   }
