@@ -1,4 +1,5 @@
 import 'package:casscoapp/screens/home_screen.dart';
+import 'package:casscoapp/screens/password_screen.dart';
 import 'package:casscoapp/screens/registration_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -125,7 +126,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   emailField,
                   SizedBox(height: 25),
                   passwordField,
-                  SizedBox(height: 35),
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PasswordScreen()));
+                        },
+                        child: Text(
+                          "Forgot Password?",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.redAccent),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(height: 25),
                   loginButton,
                   SizedBox(height: 15),
                   Row(
