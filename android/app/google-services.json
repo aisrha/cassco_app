@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1039336123803",
+    "project_id": "casscoapp",
+    "storage_bucket": "casscoapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039336123803:android:9dec404667329c9f9fc53e",
+        "android_client_info": {
+          "package_name": "com.example.casscoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039336123803-aq95guhdcg4e7m8mqc4el2rji6d1qfnu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.casscoapp",
+            "certificate_hash": "9fb48af939667b4ef03f74506c059bde2927c5e8"
+          }
+        },
+        {
+          "client_id": "1039336123803-ee8gprrf6tsdmnf4tdf1m5s6obiaemsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGOjrAo4Z7cOLWknYF21pG0u2_Ed4RGx0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039336123803-ee8gprrf6tsdmnf4tdf1m5s6obiaemsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
