@@ -1,6 +1,8 @@
 import 'package:casscoapp/model/user_model.dart';
 import 'package:casscoapp/screens/homepage_screen.dart';
 import 'package:casscoapp/screens/login_screen.dart';
+import 'package:casscoapp/screens/note_screen.dart';
+import 'package:casscoapp/screens/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   final screens = [
     HomePageScreen(),
-    Center(child: Text("Notes", style: TextStyle(fontSize: 60))),
-    Center(child: Text("Profile", style: TextStyle(fontSize: 60))),
+    NoteScreen(),
+    ProfileScreen(),
   ];
 
   @override
