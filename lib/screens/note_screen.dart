@@ -1,3 +1,6 @@
+import 'package:casscoapp/screens/notes/topic1_screen.dart';
+import 'package:casscoapp/screens/notes/topic2_screen.dart';
+import 'package:casscoapp/screens/notes/topic3_screen.dart';
 import 'package:flutter/material.dart';
 
 class NoteScreen extends StatefulWidget {
@@ -58,7 +61,12 @@ class _NoteScreenState extends State<NoteScreen> {
               alignment: MainAxisAlignment.start,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Topic1Screen()));
+                  },
                   child: Text(
                     'Notes',
                     style: TextStyle(fontSize: 20),
@@ -117,7 +125,12 @@ class _NoteScreenState extends State<NoteScreen> {
               alignment: MainAxisAlignment.start,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Topic2Screen()));
+                  },
                   child: Text(
                     'Notes',
                     style: TextStyle(fontSize: 20),
@@ -176,7 +189,12 @@ class _NoteScreenState extends State<NoteScreen> {
               alignment: MainAxisAlignment.start,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Topic3Screen()));
+                  },
                   child: Text(
                     'Notes',
                     style: TextStyle(fontSize: 20),
