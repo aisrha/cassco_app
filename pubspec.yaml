@@ -56,6 +56,9 @@ flutter:
     - assets/topic1.png
     - assets/topic2.png
     - assets/topic3.png
+    - assets/topic1pic01.png
+    - assets/topic1pic02.png
+    - assets/topic1pic03.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
