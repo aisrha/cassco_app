@@ -131,7 +131,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: MaterialButton(
         padding: EdgeInsets.symmetric(horizontal: 38),
         // minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {},
+        onPressed: () {
+          _auth.sendPasswordResetEmail(email: loggedInUser.email.toString());
+          Fluttertoast.showToast(
+            msg: "Change password request has been sent to your email",
+            timeInSecForIosWeb: 10,
+          );
+        },
         child: Text(
           "Change Password",
           textAlign: TextAlign.center,
