@@ -226,10 +226,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .update(userModel.toMap());
     Fluttertoast.showToast(
       msg: "Profile is successfully updated!",
-      backgroundColor: Colors.green,
-      timeInSecForIosWeb: 3,
+      timeInSecForIosWeb: 5,
     );
-
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));
   }
