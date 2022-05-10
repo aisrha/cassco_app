@@ -282,7 +282,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .collection("users")
         .doc(user.uid)
         .set(userModel.toMap());
-    Fluttertoast.showToast(msg: "Account created successfully");
+    Fluttertoast.showToast(
+      msg: "Account verification email has been sent successfully",
+      timeInSecForIosWeb: 5,
+    );
 
     Navigator.pushAndRemoveUntil(
         (context),
