@@ -82,6 +82,7 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
     Fluttertoast.showToast(
       msg: "Feedback sent successfully!",
       timeInSecForIosWeb: 5,
+      gravity: ToastGravity.TOP,
     );
     Navigator.pop(context);
   }

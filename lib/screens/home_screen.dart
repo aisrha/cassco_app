@@ -61,7 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       await user!.sendEmailVerification();
     } catch (e) {
-      Fluttertoast.showToast(msg: e.toString());
+      Fluttertoast.showToast(
+        msg: e.toString(),
+        timeInSecForIosWeb: 5,
+        gravity: ToastGravity.TOP,
+      );
     }
   }
 
@@ -172,7 +176,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Fluttertoast.showToast(msg: "Logged out successfully");
+    Fluttertoast.showToast(
+      msg: "Logged out successfully",
+      timeInSecForIosWeb: 5,
+      gravity: ToastGravity.TOP,
+    );
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }

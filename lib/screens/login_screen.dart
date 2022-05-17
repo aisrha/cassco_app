@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // Success authentication
         Fluttertoast.showToast(
           msg: 'Login Successful!',
-          timeInSecForIosWeb: 3,
+          timeInSecForIosWeb: 5,
           gravity: ToastGravity.TOP,
         );
         Navigator.of(context).pushReplacement(
@@ -199,7 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
         // Error authentication
         Fluttertoast.showToast(
           msg: e.message!,
-          timeInSecForIosWeb: 3,
+          timeInSecForIosWeb: 5,
           gravity: ToastGravity.TOP,
         );
       }

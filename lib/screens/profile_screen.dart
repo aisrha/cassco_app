@@ -110,7 +110,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       onTap: () {
         Fluttertoast.showToast(
           msg: "Email is not editable",
-          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 5,
+          gravity: ToastGravity.TOP,
         );
       },
       decoration: InputDecoration(
@@ -135,7 +136,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _auth.sendPasswordResetEmail(email: loggedInUser.email.toString());
           Fluttertoast.showToast(
             msg: "Change password request has been sent to your email",
-            timeInSecForIosWeb: 10,
+            timeInSecForIosWeb: 5,
+            gravity: ToastGravity.TOP,
           );
         },
         child: Text(
@@ -227,6 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     Fluttertoast.showToast(
       msg: "Profile is successfully updated!",
       timeInSecForIosWeb: 5,
+      gravity: ToastGravity.TOP,
     );
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => HomeScreen()));

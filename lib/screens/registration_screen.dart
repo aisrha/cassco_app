@@ -256,7 +256,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         Fluttertoast.showToast(
           msg: e.message!,
           timeInSecForIosWeb: 5,
-          gravity: ToastGravity.CENTER,
+          gravity: ToastGravity.TOP,
         );
       }
     }
@@ -285,6 +285,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     Fluttertoast.showToast(
       msg: "Account verification email has been sent successfully",
       timeInSecForIosWeb: 5,
+      gravity: ToastGravity.TOP,
     );
 
     Navigator.pushAndRemoveUntil(

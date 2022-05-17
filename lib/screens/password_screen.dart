@@ -57,7 +57,11 @@ class _PasswordScreenState extends State<PasswordScreen> {
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
           _auth.sendPasswordResetEmail(email: emailController.text);
-          Fluttertoast.showToast(msg: "Request sent successfully!");
+          Fluttertoast.showToast(
+            msg: "Request sent successfully!",
+            timeInSecForIosWeb: 5,
+            gravity: ToastGravity.TOP,
+          );
           Navigator.of(context).pop();
         },
         child: Text(
