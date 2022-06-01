@@ -126,6 +126,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         if (!regex.hasMatch(value)) {
           return ("At least 1 uppercase, number & special character");
         }
+        return null;
       },
       onSaved: (value) {
         passwordEditingController.text = value!;
