@@ -76,9 +76,10 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
     feedbackModel.feedback = feedbackController.text;
 
     await firebaseFirestore
-        .collection("feedback")
+        .collection("users")
         .doc(user!.uid)
-        .set(feedbackModel.toMap());
+        .collection('feedback')
+        .add(feedbackModel.toMap());
     Fluttertoast.showToast(
       msg: "Feedback sent successfully!",
       timeInSecForIosWeb: 5,

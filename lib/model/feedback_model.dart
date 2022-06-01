@@ -8,7 +8,7 @@ class FeedbackModel {
   factory FeedbackModel.fromMap(map) {
     return FeedbackModel(
       timestamp: map['timestamp'],
-      feedback: map['feedbacl'],
+      feedback: map['feedback'],
     );
   }
 
