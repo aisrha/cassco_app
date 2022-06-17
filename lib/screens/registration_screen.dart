@@ -26,6 +26,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final passwordEditingController = new TextEditingController();
   final confirmPasswordEditingController = new TextEditingController();
 
+  // obsecure text
+  bool _obsecureText = true;
+  bool _obsecureTextConfirm = true;
+
   @override
   Widget build(BuildContext context) {
     // first name field
@@ -117,7 +121,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final passwordField = TextFormField(
       autofocus: false,
       controller: passwordEditingController,
-      obscureText: true,
+      obscureText: _obsecureText,
       validator: (value) {
         RegExp regex = RegExp(r'(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)');
         if (value!.isEmpty) {
@@ -133,19 +137,26 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Password",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          )),
+        prefixIcon: Icon(Icons.vpn_key),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Password",
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obsecureText = !_obsecureText;
+            });
+          },
+          child: Icon(_obsecureText ? Icons.visibility : Icons.visibility_off),
+        ),
+      ),
     );
 
     // confirm password field
     final confirmPasswordField = TextFormField(
       autofocus: false,
       controller: confirmPasswordEditingController,
-      obscureText: true,
+      obscureText: _obsecureTextConfirm,
       validator: (value) {
         if (confirmPasswordEditingController.text !=
             passwordEditingController.text) {
@@ -158,12 +169,22 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       },
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
-          prefixIcon: Icon(Icons.vpn_key),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Confirm Password",
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          )),
+        prefixIcon: Icon(Icons.vpn_key),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Confirm Password",
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        suffixIcon: GestureDetector(
+          onTap: () {
+            setState(() {
+              _obsecureTextConfirm = !_obsecureTextConfirm;
+            });
+          },
+          child: Icon(
+              _obsecureTextConfirm ? Icons.visibility : Icons.visibility_off),
+        ),
+      ),
     );
 
     // sign up button
