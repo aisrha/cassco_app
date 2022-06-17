@@ -24,6 +24,7 @@ class _ResultScreenState extends State<ResultScreen> {
   Widget build(BuildContext context) {
     var state = Provider.of<AppState>(context);
     bool isCorrect;
+    int quesLength = widget.corAnsList.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -56,7 +57,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 children: [
                   const Text('Your Marks:'),
                   Text(
-                    widget.usScore.toString() + '/100',
+                    widget.usScore.toString() + ' / ' + quesLength.toString(),
                     style: const TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
