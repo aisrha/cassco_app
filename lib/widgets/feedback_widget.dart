@@ -53,7 +53,9 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
         ),
         TextButton(
           onPressed: () {
-            postDetailsToFirestore();
+            if (_formKey.currentState!.validate()) {
+              postDetailsToFirestore();
+            }
           },
           child: const Text('Send'),
         ),
@@ -62,10 +64,6 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
   }
 
   postDetailsToFirestore() async {
-    // call firestore
-    // call user model
-    // send these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
