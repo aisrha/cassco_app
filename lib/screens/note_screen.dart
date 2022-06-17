@@ -9,6 +9,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'formative/formative2_screen.dart';
+import 'formative/formative3_screen.dart';
+
 class NoteScreen extends StatefulWidget {
   const NoteScreen({Key? key}) : super(key: key);
 
@@ -48,6 +51,88 @@ class _NoteScreenState extends State<NoteScreen> {
           } else if (count < 2) {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => Formative1Screen()));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Please try again later. Thank you.'),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+              ),
+            ));
+          }
+        },
+      );
+    }
+
+    // check formative 2 attempt
+    Future checkTopic2Attempt() async {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .collection('topic2')
+          .get()
+          .then(
+        (value) {
+          var count = 0;
+          count = value.docs.length;
+
+          if (count >= 2) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text(
+                  'Oops! Sorry, you have exceeded the 2 attempt(s) limit.'),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+              ),
+            ));
+          } else if (count < 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Formative2Screen()));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text('Please try again later. Thank you.'),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+              ),
+            ));
+          }
+        },
+      );
+    }
+
+    // check formative 3 attempt
+    Future checkTopic3Attempt() async {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .collection('topic3')
+          .get()
+          .then(
+        (value) {
+          var count = 0;
+          count = value.docs.length;
+
+          if (count >= 2) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text(
+                  'Oops! Sorry, you have exceeded the 2 attempt(s) limit.'),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+              ),
+            ));
+          } else if (count < 2) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => Formative3Screen()));
           } else {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Please try again later. Thank you.'),
@@ -245,7 +330,9 @@ class _NoteScreenState extends State<NoteScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    checkTopic2Attempt();
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.orangeAccent,
                     elevation: 3,
@@ -323,7 +410,9 @@ class _NoteScreenState extends State<NoteScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    checkTopic3Attempt();
+                  },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.orangeAccent,
                     elevation: 3,
