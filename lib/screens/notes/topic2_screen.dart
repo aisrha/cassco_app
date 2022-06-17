@@ -12,6 +12,12 @@ class _Topic2ScreenState extends State<Topic2Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.close),
+        ),
         title: Text('Topic 2 : Ways to insert CSS'),
         backgroundColor: Colors.orangeAccent,
         centerTitle: true,

@@ -12,6 +12,12 @@ class _Topic3ScreenState extends State<Topic3Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.close),
+        ),
         title: Text('Topic 3 : Styling'),
         backgroundColor: Colors.orangeAccent,
         centerTitle: true,
