@@ -4,7 +4,9 @@ import 'package:casscoapp/model/user_model.dart';
 import 'package:casscoapp/screens/homepage_screen.dart';
 import 'package:casscoapp/screens/login_screen.dart';
 import 'package:casscoapp/screens/note_screen.dart';
+import 'package:casscoapp/screens/performance_screen.dart';
 import 'package:casscoapp/screens/profile_screen.dart';
+import 'package:casscoapp/screens/result_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -73,11 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final screens = [
     HomePageScreen(),
     NoteScreen(),
+    PerformanceScreen(),
     ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) => isEmailVerified
+      // Verified Email
       ? Scaffold(
           appBar: AppBar(
             title: Text("CASSCO"),
@@ -108,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onTap: (index) => setState(() {
               currentIndex = index;
             }),
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: "Home",
@@ -118,13 +122,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: "Notes",
               ),
               BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart),
+                label: "Performance",
+              ),
+              BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 label: "Profile",
               )
             ],
           ),
         )
-      // : Center(child: Text("Verify Email", style: TextStyle(fontSize: 60)));
+      // Unverified Email
       : Scaffold(
           appBar: AppBar(
             title: Text("Verify Email"),
