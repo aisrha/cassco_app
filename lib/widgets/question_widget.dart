@@ -1,4 +1,5 @@
 import 'package:casscoapp/main.dart';
+import 'package:casscoapp/model/summative_model.dart';
 import 'package:casscoapp/screens/result_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -88,10 +89,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        widget.question.ans1.toString(),
-                        style: const TextStyle(fontSize: 20),
-                      ),
+                      SizedBox(
+                        width: 280,
+                        child: Text(
+                          widget.question.ans1.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      )
                     ],
                   ),
                 )
@@ -135,10 +139,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        widget.question.ans2.toString(),
-                        style: const TextStyle(fontSize: 20),
-                      ),
+                      SizedBox(
+                        width: 280,
+                        child: Text(
+                          widget.question.ans2.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      )
                     ],
                   ),
                 )
@@ -182,9 +189,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        widget.question.ans3.toString(),
-                        style: const TextStyle(fontSize: 20),
+                      SizedBox(
+                        width: 280,
+                        child: Text(
+                          widget.question.ans3.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
                       ),
                     ],
                   ),
@@ -229,9 +239,12 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      Text(
-                        widget.question.ans4.toString(),
-                        style: const TextStyle(fontSize: 20),
+                      SizedBox(
+                        width: 280,
+                        child: Text(
+                          widget.question.ans4.toString(),
+                          style: const TextStyle(fontSize: 20),
+                        ),
                       ),
                     ],
                   ),
@@ -253,15 +266,17 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   );
                 } else if (answerChosen != null) {
                   if (answerChosen == widget.question.correctAns.toString()) {
-                    state.addScore(20);
+                    state.addScore(1);
                   }
                   state
                       .addCorrectAnsList(widget.question.correctAns.toString());
                   state.addUserAnsList(answerChosen);
                   print(state.correctAnsList);
                   print(state.userAnswerList);
-                  if (widget.question.quesID.toString() == 's1q5' ||
-                      widget.question.quesID.toString() == 't1q5') {
+                  if (widget.question.quesID.toString() == 's1q15' ||
+                      widget.question.quesID.toString() == 't1q7' ||
+                      widget.question.quesID.toString() == 't2q7' ||
+                      widget.question.quesID.toString() == 't3q7') {
                     postUserAnswerToFirestore(state.score, state.userAnswerList,
                         widget.question.quesID.toString());
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -300,32 +315,66 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = FirebaseAuth.instance.currentUser;
 
-    AnswerModel answerModel = AnswerModel();
+    if (quesID == 's1q15') {
+      SummativeAnswerModel sumAnswerModel = SummativeAnswerModel();
 
-    answerModel.ques1 = usAnsList[0];
-    answerModel.ques2 = usAnsList[1];
-    answerModel.ques3 = usAnsList[2];
-    answerModel.ques4 = usAnsList[3];
-    answerModel.ques5 = usAnsList[4];
-    answerModel.score = score;
+      sumAnswerModel.ques1 = usAnsList[0];
+      sumAnswerModel.ques2 = usAnsList[1];
+      sumAnswerModel.ques3 = usAnsList[2];
+      sumAnswerModel.ques4 = usAnsList[3];
+      sumAnswerModel.ques5 = usAnsList[4];
+      sumAnswerModel.ques6 = usAnsList[5];
+      sumAnswerModel.ques7 = usAnsList[6];
+      sumAnswerModel.ques8 = usAnsList[7];
+      sumAnswerModel.ques9 = usAnsList[8];
+      sumAnswerModel.ques10 = usAnsList[9];
+      sumAnswerModel.ques11 = usAnsList[10];
+      sumAnswerModel.ques12 = usAnsList[11];
+      sumAnswerModel.ques13 = usAnsList[12];
+      sumAnswerModel.ques14 = usAnsList[13];
+      sumAnswerModel.ques15 = usAnsList[14];
 
-    if (quesID == 's1q5') {
       await firebaseFirestore
           .collection("users")
           .doc(user!.uid)
           .collection('summative')
-          .add(answerModel.toMap());
-    } else if (quesID == 't1q5') {
-      await firebaseFirestore
-          .collection("users")
-          .doc(user!.uid)
-          .collection('topic1')
-          .add(answerModel.toMap());
+          .add(sumAnswerModel.toMap());
+    } else if (quesID == 't1q7' || quesID == 't2q7' || quesID == 't3q7') {
+      AnswerModel answerModel = AnswerModel();
+
+      answerModel.ques1 = usAnsList[0];
+      answerModel.ques2 = usAnsList[1];
+      answerModel.ques3 = usAnsList[2];
+      answerModel.ques4 = usAnsList[3];
+      answerModel.ques5 = usAnsList[4];
+      answerModel.ques6 = usAnsList[5];
+      answerModel.ques7 = usAnsList[6];
+      answerModel.score = score;
+
+      if (quesID == 't1q7') {
+        await firebaseFirestore
+            .collection("users")
+            .doc(user!.uid)
+            .collection('topic1')
+            .add(answerModel.toMap());
+      } else if (quesID == 't2q7') {
+        await firebaseFirestore
+            .collection("users")
+            .doc(user!.uid)
+            .collection('topic2')
+            .add(answerModel.toMap());
+      } else if (quesID == 't3q7') {
+        await firebaseFirestore
+            .collection("users")
+            .doc(user!.uid)
+            .collection('topic3')
+            .add(answerModel.toMap());
+      }
     }
 
-    if (mounted) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => HomeScreen()));
-    }
+    // if (mounted) {
+    //   Navigator.of(context).pushReplacement(
+    //       MaterialPageRoute(builder: (context) => HomeScreen()));
+    // }
   }
 }
