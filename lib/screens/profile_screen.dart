@@ -16,6 +16,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   // auth
   final _auth = FirebaseAuth.instance;
 
+  // form key
+  final _formKey = GlobalKey<FormState>();
+
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInUser = UserModel();
 
@@ -161,7 +164,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         padding: EdgeInsets.symmetric(horizontal: 38),
         // minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-          updateProfileDetails();
+          if (_formKey.currentState!.validate()) {
+            updateProfileDetails();
+          }
         },
         child: Text(
           "Save",
@@ -178,29 +183,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(25),
-        child: ListView(
-          children: [
-            Text(
-              "Edit Profile",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
-            SizedBox(height: 45),
-            firstNameField,
-            SizedBox(height: 25),
-            secondNameField,
-            SizedBox(height: 25),
-            emailField,
-            SizedBox(height: 30),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                changePasswordButton,
-                SizedBox(width: 10),
-                saveButton,
-              ],
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            children: [
+              Text(
+                "Edit Profile",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(height: 45),
+              firstNameField,
+              SizedBox(height: 25),
+              secondNameField,
+              SizedBox(height: 25),
+              emailField,
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  changePasswordButton,
+                  SizedBox(width: 10),
+                  saveButton,
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
