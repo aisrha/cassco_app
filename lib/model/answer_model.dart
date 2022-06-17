@@ -4,6 +4,8 @@ class AnswerModel {
   String? ques3;
   String? ques4;
   String? ques5;
+  String? ques6;
+  String? ques7;
   int? score;
 
   AnswerModel({
@@ -12,6 +14,8 @@ class AnswerModel {
     this.ques3,
     this.ques4,
     this.ques5,
+    this.ques6,
+    this.ques7,
     this.score,
   });
 
@@ -23,6 +27,8 @@ class AnswerModel {
       ques3: map['ques3'],
       ques4: map['ques4'],
       ques5: map['ques5'],
+      ques6: map['ques6'],
+      ques7: map['ques7'],
       score: map['score'],
     );
   }
@@ -35,6 +41,8 @@ class AnswerModel {
       'ques3': ques3,
       'ques4': ques4,
       'ques5': ques5,
+      'ques6': ques6,
+      'ques7': ques7,
       'score': score,
     };
   }
