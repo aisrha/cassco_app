@@ -1,34 +1,22 @@
 class AnswerModel {
-  String? ques1;
-  String? ques2;
-  String? ques3;
-  String? ques4;
-  String? ques5;
-  String? ques6;
-  String? ques7;
+  List<String>? questionList;
+  List<String>? correctList;
+  List<String>? userAnsList;
   int? score;
 
   AnswerModel({
-    this.ques1,
-    this.ques2,
-    this.ques3,
-    this.ques4,
-    this.ques5,
-    this.ques6,
-    this.ques7,
+    this.questionList,
+    this.correctList,
+    this.userAnsList,
     this.score,
   });
 
   // receive data from server
   factory AnswerModel.fromMap(map) {
     return AnswerModel(
-      ques1: map['ques1'],
-      ques2: map['ques2'],
-      ques3: map['ques3'],
-      ques4: map['ques4'],
-      ques5: map['ques5'],
-      ques6: map['ques6'],
-      ques7: map['ques7'],
+      questionList: List.from(map['questionList']),
+      correctList: List.from(map['correctList']),
+      userAnsList: List.from(map['userAnsList']),
       score: map['score'],
     );
   }
@@ -36,13 +24,9 @@ class AnswerModel {
   // send data to server
   Map<String, dynamic> toMap() {
     return {
-      'ques1': ques1,
-      'ques2': ques2,
-      'ques3': ques3,
-      'ques4': ques4,
-      'ques5': ques5,
-      'ques6': ques6,
-      'ques7': ques7,
+      'questionList': questionList,
+      'correctList': correctList,
+      'userAnsList': userAnsList,
       'score': score,
     };
   }
