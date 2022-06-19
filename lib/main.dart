@@ -50,7 +50,7 @@ class AppState with ChangeNotifier {
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // runApp(const MyApp());
+
   runApp(
     MultiProvider(
       providers: [
