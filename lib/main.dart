@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AppState with ChangeNotifier {
+  List<String> _questionList = [];
   List<String> _correctAnsList = [];
   List<String> _userAnswerList = [];
   int _score = 0;
 
   final PageController controller = PageController();
 
+  get questionList => _questionList;
   get correctAnsList => _correctAnsList;
   get userAnswerList => _userAnswerList;
   get score => _score;
@@ -26,9 +28,14 @@ class AppState with ChangeNotifier {
     _userAnswerList.add(userAns);
   }
 
+  void addQuestionList(String quesList) {
+    _questionList.add(quesList);
+  }
+
   void emptyArrayList() {
     _correctAnsList.clear();
     _userAnswerList.clear();
+    _questionList.clear();
     _score = 0;
   }
 
