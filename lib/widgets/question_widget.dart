@@ -268,16 +268,22 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   if (answerChosen == widget.question.correctAns.toString()) {
                     state.addScore(1);
                   }
+                  state.addQuestionList(widget.question.question.toString());
                   state
                       .addCorrectAnsList(widget.question.correctAns.toString());
                   state.addUserAnsList(answerChosen);
+                  print(state.questionList);
                   print(state.correctAnsList);
                   print(state.userAnswerList);
                   if (widget.question.quesID.toString() == 's1q15' ||
                       widget.question.quesID.toString() == 't1q7' ||
                       widget.question.quesID.toString() == 't2q7' ||
                       widget.question.quesID.toString() == 't3q7') {
-                    postUserAnswerToFirestore(state.score, state.userAnswerList,
+                    postUserAnswerToFirestore(
+                        state.score,
+                        state.questionList,
+                        state.correctAnsList,
+                        state.userAnswerList,
                         widget.question.quesID.toString());
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ResultScreen(
@@ -311,28 +317,21 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   }
 
   postUserAnswerToFirestore(
-      int score, List<String> usAnsList, String quesID) async {
+      int score,
+      List<String> quesList,
+      List<String> correctAnsList,
+      List<String> usAnsList,
+      String quesID) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = FirebaseAuth.instance.currentUser;
 
     if (quesID == 's1q15') {
       SummativeAnswerModel sumAnswerModel = SummativeAnswerModel();
 
-      sumAnswerModel.ques1 = usAnsList[0];
-      sumAnswerModel.ques2 = usAnsList[1];
-      sumAnswerModel.ques3 = usAnsList[2];
-      sumAnswerModel.ques4 = usAnsList[3];
-      sumAnswerModel.ques5 = usAnsList[4];
-      sumAnswerModel.ques6 = usAnsList[5];
-      sumAnswerModel.ques7 = usAnsList[6];
-      sumAnswerModel.ques8 = usAnsList[7];
-      sumAnswerModel.ques9 = usAnsList[8];
-      sumAnswerModel.ques10 = usAnsList[9];
-      sumAnswerModel.ques11 = usAnsList[10];
-      sumAnswerModel.ques12 = usAnsList[11];
-      sumAnswerModel.ques13 = usAnsList[12];
-      sumAnswerModel.ques14 = usAnsList[13];
-      sumAnswerModel.ques15 = usAnsList[14];
+      sumAnswerModel.questionList = List.from(quesList);
+      sumAnswerModel.correctList = List.from(correctAnsList);
+      sumAnswerModel.userAnsList = List.from(usAnsList);
+      sumAnswerModel.score = score;
 
       await firebaseFirestore
           .collection("users")
@@ -342,13 +341,9 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     } else if (quesID == 't1q7' || quesID == 't2q7' || quesID == 't3q7') {
       AnswerModel answerModel = AnswerModel();
 
-      answerModel.ques1 = usAnsList[0];
-      answerModel.ques2 = usAnsList[1];
-      answerModel.ques3 = usAnsList[2];
-      answerModel.ques4 = usAnsList[3];
-      answerModel.ques5 = usAnsList[4];
-      answerModel.ques6 = usAnsList[5];
-      answerModel.ques7 = usAnsList[6];
+      answerModel.questionList = List.from(quesList);
+      answerModel.correctList = List.from(correctAnsList);
+      answerModel.userAnsList = List.from(usAnsList);
       answerModel.score = score;
 
       if (quesID == 't1q7') {
@@ -371,10 +366,5 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             .add(answerModel.toMap());
       }
     }
-
-    // if (mounted) {
-    //   Navigator.of(context).pushReplacement(
-    //       MaterialPageRoute(builder: (context) => HomeScreen()));
-    // }
   }
 }
