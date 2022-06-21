@@ -1,15 +1,14 @@
 import 'package:casscoapp/main.dart';
-import 'package:casscoapp/model/summative_model.dart';
 import 'package:casscoapp/screens/result_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import '../model/answer_model.dart';
 import '../model/question_model.dart';
-import '../screens/home_screen.dart';
 
 class QuestionWidget extends StatefulWidget {
   const QuestionWidget({
@@ -324,46 +323,125 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       String quesID) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = FirebaseAuth.instance.currentUser;
+    DateTime nowDt = DateTime.now();
+    String dateTime = DateFormat.yMMMMd('en_US').format(nowDt);
+
+    AnswerModel answerModel = AnswerModel();
+    answerModel.questionList = List.from(quesList);
+    answerModel.correctList = List.from(correctAnsList);
+    answerModel.userAnsList = List.from(usAnsList);
+    answerModel.score = score;
+    answerModel.created = dateTime;
 
     if (quesID == 's1q15') {
-      SummativeAnswerModel sumAnswerModel = SummativeAnswerModel();
-
-      sumAnswerModel.questionList = List.from(quesList);
-      sumAnswerModel.correctList = List.from(correctAnsList);
-      sumAnswerModel.userAnsList = List.from(usAnsList);
-      sumAnswerModel.score = score;
-
-      await firebaseFirestore
-          .collection("users")
+      await FirebaseFirestore.instance
+          .collection('users')
           .doc(user!.uid)
           .collection('summative')
-          .add(sumAnswerModel.toMap());
+          .get()
+          .then(
+        (value) {
+          var count = 0;
+          count = value.docs.length;
+          if (count < 1) {
+            firebaseFirestore
+                .collection('users')
+                .doc(user.uid)
+                .collection('summative')
+                .doc('attempt1')
+                .set(answerModel.toMap());
+          } else if (count >= 1) {
+            firebaseFirestore
+                .collection('users')
+                .doc(user.uid)
+                .collection('summative')
+                .doc('attempt2')
+                .set(answerModel.toMap());
+          }
+        },
+      );
     } else if (quesID == 't1q7' || quesID == 't2q7' || quesID == 't3q7') {
-      AnswerModel answerModel = AnswerModel();
-
-      answerModel.questionList = List.from(quesList);
-      answerModel.correctList = List.from(correctAnsList);
-      answerModel.userAnsList = List.from(usAnsList);
-      answerModel.score = score;
-
       if (quesID == 't1q7') {
-        await firebaseFirestore
-            .collection("users")
+        await FirebaseFirestore.instance
+            .collection('users')
             .doc(user!.uid)
             .collection('topic1')
-            .add(answerModel.toMap());
+            .get()
+            .then(
+          (value) {
+            var count = 0;
+            count = value.docs.length;
+            if (count < 1) {
+              firebaseFirestore
+                  .collection('users')
+                  .doc(user.uid)
+                  .collection('topic1')
+                  .doc('attempt1')
+                  .set(answerModel.toMap());
+            } else if (count >= 1) {
+              firebaseFirestore
+                  .collection('users')
+                  .doc(user.uid)
+                  .collection('topic1')
+                  .doc('attempt2')
+                  .set(answerModel.toMap());
+            }
+          },
+        );
       } else if (quesID == 't2q7') {
-        await firebaseFirestore
-            .collection("users")
+        await FirebaseFirestore.instance
+            .collection('users')
             .doc(user!.uid)
             .collection('topic2')
-            .add(answerModel.toMap());
+            .get()
+            .then(
+          (value) {
+            var count = 0;
+            count = value.docs.length;
+            if (count < 1) {
+              firebaseFirestore
+                  .collection('users')
+                  .doc(user.uid)
+                  .collection('topic2')
+                  .doc('attempt1')
+                  .set(answerModel.toMap());
+            } else if (count >= 1) {
+              firebaseFirestore
+                  .collection('users')
+                  .doc(user.uid)
+                  .collection('topic2')
+                  .doc('attempt2')
+                  .set(answerModel.toMap());
+            }
+          },
+        );
       } else if (quesID == 't3q7') {
-        await firebaseFirestore
-            .collection("users")
+        await FirebaseFirestore.instance
+            .collection('users')
             .doc(user!.uid)
             .collection('topic3')
-            .add(answerModel.toMap());
+            .get()
+            .then(
+          (value) {
+            var count = 0;
+            count = value.docs.length;
+            if (count < 1) {
+              firebaseFirestore
+                  .collection('users')
+                  .doc(user.uid)
+                  .collection('topic3')
+                  .doc('attempt1')
+                  .set(answerModel.toMap());
+            } else if (count >= 1) {
+              firebaseFirestore
+                  .collection('users')
+                  .doc(user.uid)
+                  .collection('topic3')
+                  .doc('attempt2')
+                  .set(answerModel.toMap());
+            }
+          },
+        );
       }
     }
   }
