@@ -24,18 +24,16 @@ class _NoteScreenState extends State<NoteScreen> {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
 
-    // check formative 1 attempt
-    Future checkTopic1Attempt() async {
+    // check assessment attempt
+    Future checkAttempt(String dbCollection) async {
       return FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
-          .collection('topic1')
+          .collection(dbCollection)
           .get()
           .then(
         (value) {
-          var count = 0;
-          count = value.docs.length;
-          // print(count);
+          var count = value.docs.length;
 
           if (count >= 2) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -49,132 +47,19 @@ class _NoteScreenState extends State<NoteScreen> {
               ),
             ));
           } else if (count < 2) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Formative1Screen()));
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Please try again later. Thank you.'),
-              action: SnackBarAction(
-                label: 'Dismiss',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ));
-          }
-        },
-      );
-    }
-
-    // check formative 2 attempt
-    Future checkTopic2Attempt() async {
-      return FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.uid)
-          .collection('topic2')
-          .get()
-          .then(
-        (value) {
-          var count = 0;
-          count = value.docs.length;
-
-          if (count >= 2) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: const Text(
-                  'Oops! Sorry, you have exceeded the 2 attempt(s) limit.'),
-              action: SnackBarAction(
-                label: 'Dismiss',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ));
-          } else if (count < 2) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Formative2Screen()));
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Please try again later. Thank you.'),
-              action: SnackBarAction(
-                label: 'Dismiss',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ));
-          }
-        },
-      );
-    }
-
-    // check formative 3 attempt
-    Future checkTopic3Attempt() async {
-      return FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.uid)
-          .collection('topic3')
-          .get()
-          .then(
-        (value) {
-          var count = 0;
-          count = value.docs.length;
-
-          if (count >= 2) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: const Text(
-                  'Oops! Sorry, you have exceeded the 2 attempt(s) limit.'),
-              action: SnackBarAction(
-                label: 'Dismiss',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ));
-          } else if (count < 2) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Formative3Screen()));
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('Please try again later. Thank you.'),
-              action: SnackBarAction(
-                label: 'Dismiss',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ));
-          }
-        },
-      );
-    }
-
-    // check summative attempt
-    Future checkSummativeAttempt() async {
-      return FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.uid)
-          .collection('summative')
-          .get()
-          .then(
-        (value) {
-          var count = 0;
-          count = value.docs.length;
-          // print(count);
-
-          if (count >= 2) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: const Text(
-                  'Oops! Sorry, you have exceeded the 2 attempt(s) limit.'),
-              action: SnackBarAction(
-                label: 'Dismiss',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                },
-              ),
-            ));
-          } else if (count < 2) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SummativeScreen()));
+            if (dbCollection == 'topic1') {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Formative1Screen()));
+            } else if (dbCollection == 'topic2') {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Formative2Screen()));
+            } else if (dbCollection == 'topic3') {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Formative3Screen()));
+            } else if (dbCollection == 'summative') {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SummativeScreen()));
+            }
           } else {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Please try again later. Thank you.'),
@@ -251,7 +136,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    checkTopic1Attempt();
+                    checkAttempt('topic1');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.orangeAccent,
@@ -331,7 +216,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    checkTopic2Attempt();
+                    checkAttempt('topic2');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.orangeAccent,
@@ -411,7 +296,7 @@ class _NoteScreenState extends State<NoteScreen> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    checkTopic3Attempt();
+                    checkAttempt('topic3');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.orangeAccent,
@@ -479,11 +364,7 @@ class _NoteScreenState extends State<NoteScreen> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => SummativeScreen()));
-                    checkSummativeAttempt();
+                    checkAttempt('summative');
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.orangeAccent,
