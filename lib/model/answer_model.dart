@@ -3,12 +3,14 @@ class AnswerModel {
   List<String>? correctList;
   List<String>? userAnsList;
   int? score;
+  String? created;
 
   AnswerModel({
     this.questionList,
     this.correctList,
     this.userAnsList,
     this.score,
+    this.created,
   });
 
   // receive data from server
@@ -18,6 +20,7 @@ class AnswerModel {
       correctList: List.from(map['correctList']),
       userAnsList: List.from(map['userAnsList']),
       score: map['score'],
+      created: map['created'],
     );
   }
 
@@ -28,6 +31,7 @@ class AnswerModel {
       'correctList': correctList,
       'userAnsList': userAnsList,
       'score': score,
+      'created': created,
     };
   }
 }
