@@ -1,4 +1,5 @@
 import 'package:casscoapp/model/user_model.dart';
+import 'package:casscoapp/screens/faq_screen.dart';
 import 'package:casscoapp/widgets/feedback_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -94,41 +95,69 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ),
         ));
 
+    // FAQ Card
+    final faqCard = Card(
+        elevation: 10,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(23, 20, 23, 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Frequently Asked Questions',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    child: Image.asset("assets/faq.png", fit: BoxFit.contain),
+                  ),
+                  SizedBox(width: 30),
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      'Do you have questions regarding CASSCO? Click the button below to view our frequently asked questions and answers list.',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10),
+              ButtonBar(
+                alignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => FaqScreen()));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.lightGreen),
+                    ),
+                    child: Text(
+                      'List of FAQ & Answers',
+                      style: TextStyle(fontSize: 17, color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ));
+
     return Scaffold(
-      // body: Center(
-      //   child: Padding(
-      //     padding: EdgeInsets.all(20),
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       crossAxisAlignment: CrossAxisAlignment.center,
-      //       children: <Widget>[
-      //         SizedBox(
-      //           height: 150,
-      //           child: Image.asset("assets/logo.png", fit: BoxFit.contain),
-      //         ),
-      //         SizedBox(height: 20),
-      //         Text(
-      //           "Welcome Back",
-      //           style: TextStyle(
-      //             fontSize: 20,
-      //             fontWeight: FontWeight.bold,
-      //           ),
-      //         ),
-      //         SizedBox(height: 10),
-      //         Text(
-      //           "${loggedInUser.firstName} ${loggedInUser.secondName}",
-      //           style:
-      //               TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-      //         ),
-      //         Text(
-      //           "${loggedInUser.email}",
-      //           style:
-      //               TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-      //         )
-      //       ],
-      //     ),
-      //   ),
-      // ),
       body: ListView(
         padding: EdgeInsets.all(23),
         children: <Widget>[
@@ -146,6 +175,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ),
           SizedBox(height: 25),
           feedbackCard,
+          SizedBox(height: 10),
+          faqCard,
         ],
       ),
     );
