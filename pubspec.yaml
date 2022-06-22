@@ -64,6 +64,42 @@ flutter:
     - assets/topic1pic01.png
     - assets/topic1pic02.png
     - assets/topic1pic03.png
+    - assets/topic2pic01.png
+    - assets/topic2pic02.png
+    - assets/topic2pic03.png
+    - assets/topic2pic04.png
+    - assets/topic2pic05.png
+    - assets/topic2pic06.png
+    - assets/topic2pic07.png
+    - assets/topic3pic01.png
+    - assets/topic3pic02.png
+    - assets/topic3pic03.png
+    - assets/topic3pic04.png
+    - assets/topic3pic05.png
+    - assets/topic3pic06.png
+    - assets/topic3pic07.png
+    - assets/topic3pic08.png
+    - assets/topic3pic09.png
+    - assets/topic3pic10.png
+    - assets/topic3pic11.png
+    - assets/topic3pic12.png
+    - assets/topic3pic13.png
+    - assets/topic3pic14.png
+    - assets/topic3pic15.png
+    - assets/topic3pic16.png
+    - assets/topic3pic17.png
+    - assets/topic3pic18.png
+    - assets/topic3pic19.png
+    - assets/topic3pic20.png
+    - assets/topic3pic21.png
+    - assets/topic3pic22.png
+    - assets/topic3pic23.png
+    - assets/topic3pic24.png
+    - assets/topic3pic25.png
+    - assets/topic3pic26.png
+    - assets/topic3pic27.png
+    - assets/topic3pic28.png
+    - assets/topic3pic29.png
     - assets/trophy.png
     - assets/faq.png
     - assets/faqscreen.png
