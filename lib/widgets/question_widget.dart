@@ -271,9 +271,6 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   state
                       .addCorrectAnsList(widget.question.correctAns.toString());
                   state.addUserAnsList(answerChosen);
-                  print(state.questionList);
-                  print(state.correctAnsList);
-                  print(state.userAnswerList);
                   if (widget.question.quesID.toString() == 's1q15' ||
                       widget.question.quesID.toString() == 't1q7' ||
                       widget.question.quesID.toString() == 't2q7' ||
