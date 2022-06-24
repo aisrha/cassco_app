@@ -17,7 +17,11 @@ class _Formative2ScreenState extends State<Formative2Screen> {
   @override
   void initState() {
     super.initState();
-    _quiz1 = FirebaseFirestore.instance.collection('topic2').snapshots();
+    _quiz1 = FirebaseFirestore.instance
+        .collection('formative')
+        .doc('topics')
+        .collection('topic2')
+        .snapshots();
   }
 
   @override
