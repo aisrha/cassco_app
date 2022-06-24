@@ -4,6 +4,11 @@ import 'package:casscoapp/widgets/feedback_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import 'notes/topic1_screen.dart';
+import 'notes/topic2_screen.dart';
+import 'notes/topic3_screen.dart';
 
 class HomePageScreen extends StatefulWidget {
   HomePageScreen({Key? key}) : super(key: key);
@@ -157,6 +162,149 @@ class _HomePageScreenState extends State<HomePageScreen> {
           ),
         ));
 
+    buildHorizontalCards() {
+      return StreamBuilder(
+        stream: FirebaseFirestore.instance.collection('words').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong!');
+          }
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Container(
+            height: 290,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: snapshot.data!.docs.map((document) {
+                var lastIndex = document.id.contains('word07');
+
+                checkLastIndex() {
+                  if (!lastIndex) {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Swipe for more '),
+                        Icon(Icons.arrow_forward_sharp),
+                      ],
+                    );
+                  } else {
+                    return Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(''),
+                      ],
+                    );
+                  }
+                }
+
+                checkNoteTopic() {
+                  if (document['wordTopic'] == '1') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Topic1Screen()));
+                  } else if (document['wordTopic'] == '2') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Topic2Screen()));
+                  } else if (document['wordTopic'] == '3') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Topic3Screen()));
+                  }
+                }
+
+                return Card(
+                  elevation: 3,
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(23, 20, 23, 10),
+                    child: Row(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              document['wordText'],
+                              style: const TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            const Text(
+                              'Definition: ',
+                              style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: 18,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            SizedBox(
+                              width: 290,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        document['wordDesc'],
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            ButtonBar(
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    checkNoteTopic();
+                                  },
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                            Colors.lightGreen),
+                                  ),
+                                  child: Text(
+                                    'Go To Topic ${document["wordTopic"]}',
+                                    style: const TextStyle(
+                                        fontSize: 17, color: Colors.white),
+                                  ),
+                                )
+                              ],
+                            ),
+                            checkLastIndex(),
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   children: [
+                            //     Text('Swipe for more '),
+                            //     Icon(Icons.arrow_forward_sharp),
+                            //   ],
+                            // )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.all(23),
@@ -174,6 +322,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             child: Image.asset("assets/hello.png", fit: BoxFit.contain),
           ),
           SizedBox(height: 25),
+          buildHorizontalCards(),
+          SizedBox(height: 10),
           feedbackCard,
           SizedBox(height: 10),
           faqCard,
