@@ -26,6 +26,25 @@ class _ResultScreenState extends State<ResultScreen> {
     bool isCorrect;
     int quesLength = widget.corAnsList.length;
 
+    String medal = '';
+    if (quesLength == 7) {
+      if (widget.usScore <= 2) {
+        medal = 'assets/bronze.png';
+      } else if (widget.usScore >= 3 && widget.usScore <= 5) {
+        medal = 'assets/silver.png';
+      } else if (widget.usScore >= 6) {
+        medal = 'assets/gold.png';
+      }
+    } else if (quesLength == 15) {
+      if (widget.usScore <= 5) {
+        medal = 'assets/bronze.png';
+      } else if (widget.usScore >= 6 && widget.usScore <= 10) {
+        medal = 'assets/silver.png';
+      } else if (widget.usScore >= 11) {
+        medal = 'assets/gold.png';
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -46,7 +65,7 @@ class _ResultScreenState extends State<ResultScreen> {
             SizedBox(
               height: 200,
               child: Image.asset(
-                "assets/logo.png",
+                medal,
                 fit: BoxFit.contain,
               ),
             ),

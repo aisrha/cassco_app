@@ -104,6 +104,9 @@ flutter:
     - assets/trophy.png
     - assets/faq.png
     - assets/faqscreen.png
+    - assets/gold.png
+    - assets/bronze.png
+    - assets/silver.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

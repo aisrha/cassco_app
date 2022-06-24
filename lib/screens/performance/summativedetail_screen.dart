@@ -20,6 +20,16 @@ class _SummativeDetailScreenState extends State<SummativeDetailScreen> {
   Widget build(BuildContext context) {
     AnswerModel model = widget.ansModel;
 
+    // set medal
+    String medal = '';
+    if (model.score!.toInt() <= 5) {
+      medal = 'assets/bronze.png';
+    } else if (model.score!.toInt() >= 6 && model.score!.toInt() <= 10) {
+      medal = 'assets/silver.png';
+    } else if (model.score!.toInt() >= 11) {
+      medal = 'assets/gold.png';
+    }
+
     // build list view builder
     buildListViewBuilder() {
       return ListView.builder(
@@ -102,37 +112,62 @@ class _SummativeDetailScreenState extends State<SummativeDetailScreen> {
         padding: const EdgeInsets.all(23),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                widget.attemptName,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          widget.attemptName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Your marks : ' +
+                              model.score.toString() +
+                              ' / ' +
+                              model.questionList!.length.toString(),
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Attempted on : ' + model.created.toString(),
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(height: 15),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Your marks : ' +
-                    model.score.toString() +
-                    ' / ' +
-                    model.questionList!.length.toString(),
-                style: TextStyle(
-                  fontSize: 15,
+                IntrinsicWidth(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        height: 100,
+                        child: Image.asset(
+                          medal,
+                          fit: BoxFit.contain,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Attempted on : ' + model.created.toString(),
-                style: TextStyle(
-                  fontSize: 15,
-                ),
-              ),
+              ],
             ),
             SizedBox(height: 15),
             Expanded(
