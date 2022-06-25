@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'login_screen.dart';
 
 class PasswordScreen extends StatefulWidget {
   PasswordScreen({Key? key}) : super(key: key);
@@ -10,6 +13,9 @@ class PasswordScreen extends StatefulWidget {
 }
 
 class _PasswordScreenState extends State<PasswordScreen> {
+  // form key
+  final _formKey = GlobalKey<FormState>();
+
   // editing controller
   final TextEditingController emailController = new TextEditingController();
 
@@ -56,13 +62,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
         padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: () {
-          _auth.sendPasswordResetEmail(email: emailController.text);
-          Fluttertoast.showToast(
-            msg: "Request sent successfully!",
-            timeInSecForIosWeb: 5,
-            gravity: ToastGravity.TOP,
-          );
-          Navigator.of(context).pop();
+          checkAttempt(emailController.text);
         },
         child: Text(
           "Send Request",
@@ -99,6 +99,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
             child: Padding(
               padding: const EdgeInsets.all(36.0),
               child: Form(
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,5 +123,51 @@ class _PasswordScreenState extends State<PasswordScreen> {
         ),
       ),
     );
+  }
+
+  // check account valid
+  Future checkAttempt(String email) async {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get()
+        .then((value) {
+      var count = value.docs.length;
+
+      if (count == 0) {
+        Fluttertoast.showToast(
+          msg: "User account does not exist.",
+          timeInSecForIosWeb: 5,
+          gravity: ToastGravity.TOP,
+        );
+        Navigator.of(context).pop();
+      } else if (count >= 1) {
+        sendRequest(email);
+      }
+    });
+  }
+
+  // send reset password request function
+  void sendRequest(String email) async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        _auth.sendPasswordResetEmail(email: email);
+        Fluttertoast.showToast(
+          msg: "Request sent successfully!",
+          timeInSecForIosWeb: 5,
+          gravity: ToastGravity.TOP,
+        );
+        Navigator.of(context).pop();
+      } on FirebaseAuthException catch (e) {
+        // Error authentication
+        Fluttertoast.showToast(
+          msg: e.message!,
+          timeInSecForIosWeb: 5,
+          gravity: ToastGravity.TOP,
+        );
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      }
+    }
   }
 }
