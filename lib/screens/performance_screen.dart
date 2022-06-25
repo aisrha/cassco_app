@@ -16,8 +16,9 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
 
-    // check attempt
-    Future checkAttempt(String formativeTopic, String dbCollection) async {
+    // check formative attempt
+    Future checkFormativeAttempt(
+        String formativeTopic, String dbCollection) async {
       return FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
@@ -51,6 +52,38 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
       );
     }
 
+    // check summative attempt
+    Future checkSummativeAttempt() async {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .collection('summative')
+          .get()
+          .then(
+        (value) {
+          var count = value.docs.length;
+
+          if (count == 0) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text(
+                  'Oops! Sorry, you have not attempted this assesment.'),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                },
+              ),
+            ));
+          } else if (count > 0) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => SummativePerformanceScreen()));
+          }
+        },
+      );
+    }
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(23),
@@ -71,7 +104,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
             const SizedBox(height: 25),
             GestureDetector(
               onTap: () {
-                checkAttempt('Topic 1', 'topic1');
+                checkFormativeAttempt('Topic 1', 'topic1');
               },
               child: const ListTile(
                 leading: Icon(Icons.filter_1),
@@ -80,7 +113,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
             ),
             GestureDetector(
               onTap: () {
-                checkAttempt('Topic 2', 'topic2');
+                checkFormativeAttempt('Topic 2', 'topic2');
               },
               child: ListTile(
                 tileColor: Colors.grey.shade100,
@@ -90,7 +123,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
             ),
             GestureDetector(
               onTap: () {
-                checkAttempt('Topic 3', 'topic3');
+                checkFormativeAttempt('Topic 3', 'topic3');
               },
               child: const ListTile(
                 leading: Icon(Icons.filter_3),
@@ -99,10 +132,7 @@ class _PerformanceScreenState extends State<PerformanceScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SummativePerformanceScreen()));
+                checkSummativeAttempt();
               },
               child: ListTile(
                 tileColor: Colors.grey.shade100,
