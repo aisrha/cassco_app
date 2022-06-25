@@ -1,5 +1,6 @@
 import 'package:casscoapp/model/user_model.dart';
 import 'package:casscoapp/screens/home_screen.dart';
+import 'package:casscoapp/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -280,6 +281,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           timeInSecForIosWeb: 5,
           gravity: ToastGravity.TOP,
         );
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     }
   }
