@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value!.isEmpty) {
-          return ("Please enter your email");
+          return ("Email is required for login");
         }
 
         // reg expression for email validation
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return ("Password is required for login");
         }
         if (!regex.hasMatch(value)) {
-          return ("Enter valid password (min 6 chars)");
+          return ("Please enter valid password (min 6 chars)");
         }
       },
       onSaved: (value) {
@@ -202,6 +202,8 @@ class _LoginScreenState extends State<LoginScreen> {
           timeInSecForIosWeb: 5,
           gravity: ToastGravity.TOP,
         );
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       }
     }
   }
