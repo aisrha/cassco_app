@@ -127,24 +127,35 @@ class _PasswordScreenState extends State<PasswordScreen> {
 
   // check account valid
   Future checkAttempt(String email) async {
-    return FirebaseFirestore.instance
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .get()
-        .then((value) {
-      var count = value.docs.length;
+    try {
+      return FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: email)
+          .get()
+          .then((value) {
+        var count = value.docs.length;
 
-      if (count == 0) {
-        Fluttertoast.showToast(
-          msg: "User account does not exist.",
-          timeInSecForIosWeb: 5,
-          gravity: ToastGravity.TOP,
-        );
-        Navigator.of(context).pop();
-      } else if (count >= 1) {
-        sendRequest(email);
-      }
-    });
+        if (count == 0) {
+          Fluttertoast.showToast(
+            msg: "User account does not exist.",
+            timeInSecForIosWeb: 5,
+            gravity: ToastGravity.TOP,
+          );
+          Navigator.of(context).pop();
+        } else if (count >= 1) {
+          sendRequest(email);
+        }
+      });
+    } on FirebaseAuthException catch (e) {
+      // Error authentication
+      Fluttertoast.showToast(
+        msg: e.message!,
+        timeInSecForIosWeb: 5,
+        gravity: ToastGravity.TOP,
+      );
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
   }
 
   // send reset password request function
