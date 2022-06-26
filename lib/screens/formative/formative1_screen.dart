@@ -13,6 +13,7 @@ class Formative1Screen extends StatefulWidget {
 }
 
 class _Formative1ScreenState extends State<Formative1Screen> {
+  // define stream
   late Stream<QuerySnapshot<Map<String, dynamic>>> _quiz1;
   @override
   void initState() {
@@ -26,6 +27,7 @@ class _Formative1ScreenState extends State<Formative1Screen> {
 
   @override
   Widget build(BuildContext context) {
+    // call provider
     var state = Provider.of<AppState>(context);
     return Scaffold(
       appBar: AppBar(
@@ -43,7 +45,6 @@ class _Formative1ScreenState extends State<Formative1Screen> {
       body: StreamBuilder<QuerySnapshot>(
         stream: _quiz1,
         builder: (context, snapshot) {
-          var state = Provider.of<AppState>(context);
           if (snapshot.hasError) {
             return const Text('Something went wrong!');
           }
@@ -52,6 +53,7 @@ class _Formative1ScreenState extends State<Formative1Screen> {
               child: CircularProgressIndicator(),
             );
           }
+          // paged view of formative questions (total 7 ques)
           return PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: state.controller,
