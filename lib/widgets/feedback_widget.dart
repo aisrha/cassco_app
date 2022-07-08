@@ -14,6 +14,7 @@ class FeedbackDialog extends StatefulWidget {
 
 class _FeedbackDialogState extends State<FeedbackDialog> {
   final _auth = FirebaseAuth.instance;
+  FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   User? user = FirebaseAuth.instance.currentUser;
 
   final TextEditingController feedbackController = TextEditingController();
@@ -64,12 +65,9 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
   }
 
   postDetailsToFirestore() async {
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     User? user = _auth.currentUser;
 
     FeedbackModel feedbackModel = FeedbackModel();
-
-    // writing all values
     feedbackModel.timestamp = DateTime.now().toString();
     feedbackModel.feedback = feedbackController.text;
 
