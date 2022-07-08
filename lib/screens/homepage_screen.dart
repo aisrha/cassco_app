@@ -310,7 +310,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         padding: EdgeInsets.all(23),
         children: <Widget>[
           Text(
-            'Hello, ${loggedInUser.firstName}',
+            'Hello, ${loggedInUser.firstName} ${loggedInUser.secondName}',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,

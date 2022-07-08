@@ -13,13 +13,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // auth
+  // Firebase
   final _auth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser;
 
   // form key
   final _formKey = GlobalKey<FormState>();
 
-  User? user = FirebaseAuth.instance.currentUser;
+  // User model
   UserModel loggedInUser = UserModel();
 
   @override
@@ -35,12 +36,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  // editing controller
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    // editing controller
+    final firstNameEditingController = TextEditingController(
+      text: loggedInUser.firstName,
+    );
+    final secondNameEditingController = TextEditingController(
+      text: loggedInUser.secondName,
+    );
+
     // first name field
     final firstNameField = TextFormField(
       autofocus: false,
@@ -61,17 +66,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          // prefixIcon: Icon(Icons.account_circle),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          labelText: "First Name",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: "${loggedInUser.firstName}",
-          hintStyle: TextStyle(
-            color: Colors.black,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          )),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        labelText: "First Name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
     );
 
     // second name field
@@ -94,17 +95,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-          // prefixIcon: Icon(Icons.account_circle),
-          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          labelText: "Second Name",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: "${loggedInUser.secondName}",
-          hintStyle: TextStyle(
-            color: Colors.black,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-          )),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        labelText: "Second Name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
     );
 
     // email field
@@ -143,7 +140,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             gravity: ToastGravity.TOP,
           );
         },
-        child: Text(
+        child: const Text(
           "Change Password",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -161,14 +158,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
       borderRadius: BorderRadius.circular(30),
       color: Colors.green,
       child: MaterialButton(
-        padding: EdgeInsets.symmetric(horizontal: 38),
-        // minWidth: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.symmetric(horizontal: 38),
         onPressed: () {
           if (_formKey.currentState!.validate()) {
-            updateProfileDetails();
+            UserModel userModel = UserModel();
+            userModel.email = user!.email;
+            userModel.uid = user!.uid;
+            userModel.firstName = firstNameEditingController.text;
+            userModel.secondName = secondNameEditingController.text;
+            updateProfileDetails(userModel);
           }
         },
-        child: Text(
+        child: const Text(
           "Save",
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -182,28 +183,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              Text(
+              const Text(
                 "Edit Profile",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
               ),
-              SizedBox(height: 45),
+              const SizedBox(height: 45),
               firstNameField,
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               secondNameField,
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               emailField,
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   changePasswordButton,
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   saveButton,
                 ],
               ),
@@ -214,26 +215,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  void updateProfileDetails() async {
-    // call firestore
-    // call user model
-    // send these values
-
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
-
-    UserModel userModel = UserModel();
-
-    // writing all values
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
-    userModel.firstName = firstNameEditingController.text;
-    userModel.secondName = secondNameEditingController.text;
-
-    await firebaseFirestore
+  void updateProfileDetails(UserModel user) async {
+    await FirebaseFirestore.instance
         .collection("users")
         .doc(user.uid)
-        .update(userModel.toMap());
+        .update(user.toMap());
     Fluttertoast.showToast(
       msg: "Profile is successfully updated!",
       timeInSecForIosWeb: 5,
