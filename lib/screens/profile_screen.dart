@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
+      loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
   }
@@ -52,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       controller: firstNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{2,}$');
+        RegExp regex = RegExp(r'^.{2,}$');
         if (value!.isEmpty) {
           return ("First name is required");
         }
@@ -81,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       controller: secondNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{2,}$');
+        RegExp regex = RegExp(r'^.{2,}$');
         if (value!.isEmpty) {
           return ("Second name is required");
         }

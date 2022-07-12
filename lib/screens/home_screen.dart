@@ -6,7 +6,6 @@ import 'package:casscoapp/screens/login_screen.dart';
 import 'package:casscoapp/screens/note_screen.dart';
 import 'package:casscoapp/screens/performance_screen.dart';
 import 'package:casscoapp/screens/profile_screen.dart';
-import 'package:casscoapp/screens/result_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

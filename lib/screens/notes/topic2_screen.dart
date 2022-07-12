@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 class Topic2Screen extends StatefulWidget {
   Topic2Screen({Key? key}) : super(key: key);
 
@@ -21,17 +17,6 @@ class _Topic2ScreenState extends State<Topic2Screen> {
     // build image asset
     buildImageAsset(String path) {
       return SizedBox(
-        child: Image.asset(
-          path,
-          fit: BoxFit.contain,
-        ),
-      );
-    }
-
-    // build image asset with height
-    buildImageAssetHeight(double val, String path) {
-      return SizedBox(
-        height: val,
         child: Image.asset(
           path,
           fit: BoxFit.contain,
@@ -83,22 +68,6 @@ class _Topic2ScreenState extends State<Topic2Screen> {
             ),
           ),
         ],
-      );
-    }
-
-    // build code
-    buildCode(String code) {
-      return Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          code,
-          style: GoogleFonts.robotoMono(
-            textStyle: const TextStyle(
-              fontSize: 15,
-              color: Colors.blue,
-            ),
-          ),
-        ),
       );
     }
 

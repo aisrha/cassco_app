@@ -17,7 +17,7 @@ class _PasswordScreenState extends State<PasswordScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
-  final TextEditingController emailController = new TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   // firebase
   final _auth = FirebaseAuth.instance;

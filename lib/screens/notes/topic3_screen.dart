@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,28 +22,6 @@ class _Topic3ScreenState extends State<Topic3Screen> {
         child: Image.asset(
           path,
           fit: BoxFit.contain,
-        ),
-      );
-    }
-
-    // build image asset with height
-    buildImageAssetHeight(double val, String path) {
-      return SizedBox(
-        height: val,
-        child: Image.asset(
-          path,
-          fit: BoxFit.contain,
-        ),
-      );
-    }
-
-    // build topic
-    buildTopic(String topic) {
-      return Text(
-        topic,
-        style: const TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
         ),
       );
     }

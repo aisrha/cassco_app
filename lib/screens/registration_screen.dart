@@ -22,11 +22,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // editing controller
-  final firstNameEditingController = new TextEditingController();
-  final secondNameEditingController = new TextEditingController();
-  final emailEditingController = new TextEditingController();
-  final passwordEditingController = new TextEditingController();
-  final confirmPasswordEditingController = new TextEditingController();
+  final firstNameEditingController = TextEditingController();
+  final secondNameEditingController = TextEditingController();
+  final emailEditingController = TextEditingController();
+  final passwordEditingController = TextEditingController();
+  final confirmPasswordEditingController = TextEditingController();
 
   // obsecure text
   bool _obsecureText = true;
@@ -40,7 +40,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: firstNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{2,}$');
+        RegExp regex = RegExp(r'^.{2,}$');
         if (value!.isEmpty) {
           return ("First name is required");
         }
@@ -68,7 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       controller: secondNameEditingController,
       keyboardType: TextInputType.name,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{2,}$');
+        RegExp regex = RegExp(r'^.{2,}$');
         if (value!.isEmpty) {
           return ("Second name is required");
         }

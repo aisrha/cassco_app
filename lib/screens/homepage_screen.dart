@@ -4,7 +4,6 @@ import 'package:casscoapp/widgets/feedback_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'notes/topic1_screen.dart';
 import 'notes/topic2_screen.dart';
@@ -29,7 +28,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = UserModel.fromMap(value.data());
+      loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
   }
@@ -174,7 +173,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               child: CircularProgressIndicator(),
             );
           }
-          return Container(
+          return SizedBox(
             height: 290,
             child: ListView(
               scrollDirection: Axis.horizontal,

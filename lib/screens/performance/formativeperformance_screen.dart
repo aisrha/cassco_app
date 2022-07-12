@@ -1,6 +1,5 @@
 import 'package:casscoapp/model/answer_model.dart';
 import 'package:casscoapp/screens/performance/formativedetail_screen.dart';
-import 'package:casscoapp/screens/performance/summativedetail_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
