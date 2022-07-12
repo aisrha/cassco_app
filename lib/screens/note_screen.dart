@@ -85,6 +85,7 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
+              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter: const ColorFilter.mode(
@@ -165,6 +166,7 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
+              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter:
@@ -245,6 +247,7 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
+              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter:
@@ -325,6 +328,7 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
+              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter:
