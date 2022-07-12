@@ -384,17 +384,20 @@ class _NoteScreenState extends State<NoteScreen> {
         ));
 
     return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
-          buildTopic1Card,
-          const Spacer(),
-          buildTopic2Card,
-          const Spacer(),
-          buildTopic3Card,
-          const Spacer(),
-          buildEndTopic,
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: ListView(
+          // padding: const EdgeInsets.all(16),
+          children: [
+            buildTopic1Card,
+            const Spacer(),
+            buildTopic2Card,
+            const Spacer(),
+            buildTopic3Card,
+            const Spacer(),
+            buildEndTopic,
+          ],
+        ),
       ),
     );
   }
