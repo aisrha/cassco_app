@@ -85,7 +85,6 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
-              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter: const ColorFilter.mode(
@@ -166,7 +165,6 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
-              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter:
@@ -247,7 +245,6 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
-              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter:
@@ -328,7 +325,6 @@ class _NoteScreenState extends State<NoteScreen> {
         child: Column(
           children: [
             Stack(
-              fit: StackFit.expand,
               children: [
                 ColorFiltered(
                   colorFilter:
@@ -389,7 +385,7 @@ class _NoteScreenState extends State<NoteScreen> {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           // padding: const EdgeInsets.all(16),
           children: [
