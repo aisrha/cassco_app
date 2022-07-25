@@ -15,8 +15,8 @@ A user manual video of CASSCO is provided for extra reference.
 Flutter used in developing CASSCO is Flutter 2 and here are a few resources to get you started with Flutter.
 
 - [Flutter installation](https://docs.flutter.dev/get-started/install)
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [Lab : Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook : Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
 For help getting started with Flutter, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
@@ -28,6 +28,62 @@ The database used for this project is Firebase Firestore. Here are a few resourc
 
 - [Firestore | Firebase Documentation](https://firebase.google.com/docs/firestore/quickstart)
 - [Authenticate with Firebase using Password-Based Accounts on Flutter](https://firebase.google.com/docs/auth/flutter/password-auth)
+
+## Database Structure
+
+***User Profile***
+
+Path : CasscoApp > users > document(s)
+
+Attributes
+- firstName
+- secondName
+- email
+- uid
+
+***FAQ*** 
+
+Path : CasscoApp > faq > document(s)
+
+Attributes
+- faqID
+- faqQuestion
+- faqAnswer
+
+***Formative Questions*** 
+
+Path : CasscoApp > formative > topics > topic1 (or topic2 or topic3) > document(s)
+
+Attributes
+- quesID
+- question 
+- ans1
+- ans2
+- ans3
+- ans4
+- correctAns
+
+***Summative Questions*** 
+
+Path : CasscoApp > summative > document(s)
+
+Attributes
+- quesID
+- question 
+- ans1
+- ans2
+- ans3
+- ans4
+- correctAns
+
+***CSS Keywords*** 
+
+Path : CasscoApp > words > document(s)
+
+Attributes
+- wordTopic
+- wordText
+- wordDesc
 
 ## Emulator Used
 
